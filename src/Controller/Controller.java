@@ -1,7 +1,5 @@
 package Controller;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation;
-
 import java.util.ArrayList;
 
 public class Controller
@@ -26,14 +24,14 @@ public class Controller
         return false;
     }
 
-    public boolean addNewReport(String number,
-                                String date,
-                                String content,
-                                String head,
-                                String event,
-                                String responsibleMan,
-                                String dateEvent,
-                                String mark)
+    public boolean addNewOrder(String number,
+                               String date,
+                               String content,
+                               String head,
+                               String event,
+                               String responsibleMan,
+                               String dateEvent,
+                               String mark)
     {
         boolean answer=addNewCorrespondent(head.split("\n")[0], head.split("\n")[1], head.split("\n")[2]);
         if(answer==false)
@@ -56,5 +54,100 @@ public class Controller
         if(list.get(0).equals(event))
             return true;
         return false;
+    }
+
+    public String[] getListCorrespondents()
+    {
+        ArrayList<String> arrayList=jdbc.select("SELECT FIO FROM workers", JDBC.WORKERS);
+        String[] list=new String[arrayList.size()];
+        for(int i=0; i<list.length; i++)
+            list[i]=arrayList.get(i);
+        return list;
+    }
+
+    public ArrayList<String> getInformationAboutCorr(String fio)
+    {
+        ArrayList<String> list=jdbc.select("SELECT * FROM workers WHERE FIO=\""+fio+"\"", JDBC.WORKERSSELECTEDALL);;
+        return list;
+    }
+
+    public ArrayList<String> getInformationAboutOrder(String ID)
+    {
+        ArrayList<String> list=jdbc.select("SELECT * FROM orders WHERE ID=\""+ID+"\"", JDBC.ORDERSSELECTEDALL);
+        System.out.println(list);
+        ArrayList<String> correspondent=getInformationAboutCorr(list.get(3));
+        if(correspondent.isEmpty())
+            return new ArrayList<String>();//временно.
+        System.out.println(correspondent);
+        list.add(3, correspondent.get(0)+"\n"+correspondent.get(2)+"\n"+correspondent.get(1));
+        return list;
+    }
+
+    public ArrayList<String> getInformationAboutEvent(String ORDEREVENT)
+    {
+        ArrayList<String> list=jdbc.select("SELECT ORDEREVENT, DATE_OF_ADOPTION, MARK, FIO FROM orderevents WHERE ORDEREVENT=\""+ORDEREVENT+"\"", +JDBC.ORDEREVENTSELECTEDALL);
+        /*ArrayList<String> correspondent=getInformationAboutCorr(list.get(3));
+        list.add(3, correspondent.get(0)+"\n"+correspondent.get(2)+"\n"+correspondent.get(1));*/
+        /*list.addAll(getInformationAboutCorr(list.get(3)));
+        list.remove(3);*/
+        System.out.println(list);
+        return list;
+    }
+
+    public boolean changeCorrespondent(String oldfio, String fio, String division_name, String position)
+    {
+        boolean answer=jdbc.update("UPDATE workers SET FIO=\""+fio+"\", DIVISION_NAME=\""+
+                                    division_name+"\", POSITION=\""+position+"\" WHERE FIO=\""+oldfio+"\"");
+        return answer;
+    }
+
+    public boolean changeOrder(String number,
+                               String date,
+                               String content,
+                               String head,
+                               String event,
+                               String responsibleMan,
+                               String dateEvent,
+                               String mark)
+    {
+        if(getInformationAboutCorr(head).isEmpty())
+            return false;
+        boolean answer=jdbc.update("UPDATE orders SET DATE_OF_ADOPTION=\""+
+                                    date+"\", CONTENT=\""+
+                                    content+"\", FIO=\""+
+                                    head+"\" WHERE ID="+
+                                    number);
+        if(answer==false)
+            return answer;
+        System.out.println("UPDATE orderevents SET ORDEREVENT=\"" +
+                event + "\", DATE_OF_ADOPTION=\"" +
+                dateEvent + "\", MARK=\"" +
+                mark + "\", FIO=\"" +
+                responsibleMan + "\" WHERE ID_OF_ORDER="+number);
+        if(!event.equals(""))
+            answer = jdbc.update("UPDATE orderevents SET ORDEREVENT=\"" +
+                    event + "\", DATE_OF_ADOPTION=\"" +
+                    dateEvent + "\", MARK=\"" +
+                    mark + "\", FIO=\"" +
+                    responsibleMan + "\" WHERE ID_OF_ORDER="+number);
+        return answer;
+    }
+
+    public String[] getListOrders()
+    {
+        ArrayList<String> arrayList=jdbc.select("SELECT ID FROM orders", JDBC.ORDERS);
+        String[] list=new String[arrayList.size()];
+        for(int i=0; i<list.length; i++)
+            list[i]=arrayList.get(i);
+        return list;
+    }
+
+    public String[] getListEvents(String ID)
+    {
+        ArrayList<String> arrayList=jdbc.select("SELECT ORDEREVENT FROM orderevents WHERE ID_OF_ORDER=\""+ID+"\"", JDBC.ORDEREVENTS);
+        String[] list=new String[arrayList.size()];
+        for(int i=0; i<list.length; i++)
+            list[i]=arrayList.get(i);
+        return list;
     }
 }
