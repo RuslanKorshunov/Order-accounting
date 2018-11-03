@@ -101,6 +101,11 @@ public class JDBC
         return insert(query);
     }
 
+    public boolean delete(String query)
+    {
+        return insert(query);
+    }
+
     private void close()
     {
         try

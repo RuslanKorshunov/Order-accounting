@@ -133,6 +133,33 @@ public class Controller
         return answer;
     }
 
+    public boolean deleteOrder(String ID)
+    {
+        boolean answer=deleteAllEvents(ID);
+        if(answer==false)
+            return answer;
+        answer=jdbc.delete("DELETE FROM orders WHERE ID=\""+ID+"\"");
+        return answer;
+    }
+
+    public boolean deleteEvent(String event)
+    {
+        boolean answer=jdbc.delete("DELETE FROM orderevents WHERE ORDEREVENT=\""+event+"\"");
+        return answer;
+    }
+
+    public boolean deleteAllEvents(String ID)
+    {
+        boolean answer=jdbc.delete("DELETE FROM orderevents WHERE ID_OF_ORDER=\""+ID+"\"");
+        return answer;
+    }
+
+    public boolean deleteCorrespondent(String fio)
+    {
+        boolean answer=jdbc.delete("DELETE FROM workers WHERE FIO=\""+fio+"\"");
+        return answer;
+    }
+
     public String[] getListOrders()
     {
         ArrayList<String> arrayList=jdbc.select("SELECT ID FROM orders", JDBC.ORDERS);

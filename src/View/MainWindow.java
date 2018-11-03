@@ -44,7 +44,7 @@ public class MainWindow extends JFrame
         menu.add(exit);
         menuBar.add(menu);
         setJMenuBar(menuBar);
-        editData();
+        deleteDate();
 
         add.addActionListener(new ActionListener()
         {
@@ -62,6 +62,15 @@ public class MainWindow extends JFrame
             {
                 mainContainer.removeAll();
                 editData();
+            }
+        });
+        delete.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                mainContainer.removeAll();
+                deleteDate();
             }
         });
         exit.addActionListener(new ActionListener()
@@ -647,6 +656,135 @@ public class MainWindow extends JFrame
                 }
             }
         });
+
+        mainContainer.add(tabbedPane);
+
+        revalidate();
+        repaint();
+    }
+
+    private void deleteDate()
+    {
+        JTabbedPane tabbedPane=new JTabbedPane();
+
+        Container container1=new Container();
+        Container container2=new Container();
+
+        container1.setLayout(layout);
+        container2.setLayout(layout);
+
+        JLabel numberLabel=new JLabel("Номер приказа:");
+        numberLabel.setForeground(Color.BLACK);
+
+        JButton delete1Button=new JButton("Удалить");
+        delete1Button.setEnabled(false);
+        JButton delete2Button=new JButton("Удалить");
+        delete2Button.setEnabled(false);
+
+        JComboBox orderComboBox=new JComboBox(controller.getListOrders());
+        JComboBox correspondentComboBox=new JComboBox(controller.getListCorrespondents());
+        JComboBox eventComboBox=new JComboBox();
+        eventComboBox.setEnabled(false);
+        eventComboBox.setPreferredSize(new Dimension(0, 20));
+
+        container1.add(numberLabel);
+        container1.add(orderComboBox);
+        container1.add(delete1Button);
+        container1.add(eventComboBox);
+        container2.add(correspondentComboBox);
+        container2.add(delete2Button);
+
+        layout.putConstraint(SpringLayout.NORTH, numberLabel, 150, SpringLayout.NORTH, container1);
+        layout.putConstraint(SpringLayout.WEST, numberLabel, 300, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.NORTH, orderComboBox, 0, SpringLayout.NORTH, numberLabel);
+        layout.putConstraint(SpringLayout.WEST, orderComboBox, 5, SpringLayout.EAST, numberLabel);
+        layout.putConstraint(SpringLayout.SOUTH, orderComboBox, 0, SpringLayout.SOUTH, numberLabel);
+        layout.putConstraint(SpringLayout.NORTH, eventComboBox, 10, SpringLayout.SOUTH, numberLabel);
+        layout.putConstraint(SpringLayout.WEST, eventComboBox, 0, SpringLayout.WEST, numberLabel);
+        layout.putConstraint(SpringLayout.EAST, eventComboBox, 0, SpringLayout.EAST, orderComboBox);
+        layout.putConstraint(SpringLayout.NORTH, delete1Button, 10, SpringLayout.SOUTH, eventComboBox);
+        layout.putConstraint(SpringLayout.WEST, delete1Button, 25, SpringLayout.WEST, eventComboBox);
+
+        layout.putConstraint(SpringLayout.NORTH, correspondentComboBox, 180, SpringLayout.NORTH, container2);
+        layout.putConstraint(SpringLayout.WEST, correspondentComboBox, 280, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.NORTH, delete2Button, 10, SpringLayout.SOUTH, correspondentComboBox);
+        layout.putConstraint(SpringLayout.WEST, delete2Button, 60, SpringLayout.WEST, correspondentComboBox);
+
+        orderComboBox.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String[] events=controller.getListEvents((String) orderComboBox.getSelectedItem());
+                String[] optionsToChoose=new String[events.length+2];
+                optionsToChoose[0]="Удалить приказ";
+                optionsToChoose[1]="Удалить мероприятия";
+                if(events.length!=0)
+                    for(int i=2; i<optionsToChoose.length; i++)
+                        optionsToChoose[i]=events[i-2];
+                eventComboBox.setModel(new DefaultComboBoxModel(optionsToChoose));
+                eventComboBox.setEnabled(true);
+            }
+        });
+        eventComboBox.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                delete1Button.setEnabled(true);
+            }
+        });
+        delete1Button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                boolean answer=false;
+                String choice=(String)eventComboBox.getSelectedItem();
+                if(choice.equals("Удалить приказ"))
+                    answer=controller.deleteOrder((String) orderComboBox.getSelectedItem());
+                else
+                if(choice.equals("Удалить мероприятия"))
+                    answer=controller.deleteAllEvents((String) orderComboBox.getSelectedItem());
+                else
+                    answer=controller.deleteEvent((String) eventComboBox.getSelectedItem());
+                if(answer==false)
+                    showErrorMessage();
+                else
+                {
+                    orderComboBox.setModel(new DefaultComboBoxModel(controller.getListOrders()));
+                    eventComboBox.setModel(new DefaultComboBoxModel());
+                    eventComboBox.setEnabled(false);
+                    delete1Button.setEnabled(false);
+                }
+            }
+        });
+        correspondentComboBox.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                delete2Button.setEnabled(true);
+            }
+        });
+        delete2Button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                boolean answer=controller.deleteCorrespondent((String)correspondentComboBox.getSelectedItem());
+                if(answer==false)
+                    showErrorMessage();
+                else
+                {
+                    correspondentComboBox.setModel(new DefaultComboBoxModel(controller.getListCorrespondents()));
+                    delete2Button.setEnabled(false);
+                }
+            }
+        });
+
+        tabbedPane.addTab("Приказ", container1);
+        tabbedPane.addTab("Корреспондент", container2);
 
         mainContainer.add(tabbedPane);
 
