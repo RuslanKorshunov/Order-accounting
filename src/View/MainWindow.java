@@ -3,16 +3,10 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MainWindow extends JFrame
 {
@@ -821,24 +815,30 @@ public class MainWindow extends JFrame
 
         JLabel dateBeginLabel=new JLabel("Дата начала:");
         JLabel dateEndLabel=new JLabel("Дата завершения:");
+        JLabel typeOfDocumentLabel=new JLabel("Тип документа:");
+        JLabel currentDateLabel=new JLabel("Текущая дата:");
 
         JTextField dateBeginTextField=new JTextField("ГГГГ-ММ-ДД", 7);
         JTextField dateEndTextField=new JTextField("ГГГГ-ММ-ДД", 7);
+        JTextField currentDateTextField=new JTextField("ГГГГ-ММ-ДД");
 
-        JButton searchButton=new JButton("Поиск");
+        JButton search2Button=new JButton("Поиск");
+        JButton search3Button=new JButton("Поиск");
+        search3Button.setEnabled(false);
 
-        String[] eventTableColumnName={"Мероприятие", "Дата", "Выполнено", "Ответственный"};
-        //Object[] eventTableDate={};
-/*        JTable eventTable=new JTable();
-        eventTable.setRowSelectionAllowed(false);
-        eventTable.setColumnSelectionAllowed(false);*/
+        JComboBox typeOfDocumentComboBox=new JComboBox(new String[]{"Приказ", "Мероприятие"});
+        typeOfDocumentComboBox.setPreferredSize(new Dimension(100,20));
 
         container2.add(dateBeginLabel);
         container2.add(dateEndLabel);
         container2.add(dateBeginTextField);
         container2.add(dateEndTextField);
-        container2.add(searchButton);
-        //container2.add(eventTable);
+        container2.add(search2Button);
+        container3.add(typeOfDocumentLabel);
+        container3.add(typeOfDocumentComboBox);
+        container3.add(currentDateLabel);
+        container3.add(currentDateTextField);
+        container3.add(search3Button);
 
         layout.putConstraint(SpringLayout.NORTH, dateBeginLabel, 40, SpringLayout.NORTH, container2);
         layout.putConstraint(SpringLayout.WEST, dateBeginLabel, 100, SpringLayout.WEST, container2);
@@ -848,22 +848,42 @@ public class MainWindow extends JFrame
         layout.putConstraint(SpringLayout.EAST, dateEndTextField, -100, SpringLayout.EAST, container2);
         layout.putConstraint(SpringLayout.EAST, dateEndLabel, -5, SpringLayout.WEST, dateEndTextField);
         layout.putConstraint(SpringLayout.NORTH, dateEndLabel, 0, SpringLayout.NORTH, dateEndTextField);
-        layout.putConstraint(SpringLayout.NORTH, searchButton,10, SpringLayout.SOUTH, dateBeginLabel);
-        layout.putConstraint(SpringLayout.WEST, searchButton, 85, SpringLayout.EAST, dateBeginTextField);
+        layout.putConstraint(SpringLayout.NORTH, search2Button,10, SpringLayout.SOUTH, dateBeginLabel);
+        layout.putConstraint(SpringLayout.WEST, search2Button, 85, SpringLayout.EAST, dateBeginTextField);
 
-        searchButton.addActionListener(new ActionListener()
+        layout.putConstraint(SpringLayout.NORTH, typeOfDocumentLabel, 40, SpringLayout.NORTH, container3);
+        layout.putConstraint(SpringLayout.WEST, typeOfDocumentLabel, 100, SpringLayout.WEST, container3);
+        layout.putConstraint(SpringLayout.NORTH, typeOfDocumentComboBox, 0, SpringLayout.NORTH, typeOfDocumentLabel);
+        layout.putConstraint(SpringLayout.WEST, typeOfDocumentComboBox, 5, SpringLayout.EAST, typeOfDocumentLabel);
+        layout.putConstraint(SpringLayout.NORTH, currentDateLabel,10, SpringLayout.SOUTH, typeOfDocumentComboBox);
+        layout.putConstraint(SpringLayout.WEST, currentDateLabel, 0, SpringLayout.WEST, typeOfDocumentLabel);
+        layout.putConstraint(SpringLayout.NORTH, currentDateTextField, 0, SpringLayout.NORTH, currentDateLabel);
+        layout.putConstraint(SpringLayout.WEST, currentDateTextField, 0, SpringLayout.WEST, typeOfDocumentComboBox);
+        layout.putConstraint(SpringLayout.EAST, currentDateTextField, 0, SpringLayout.EAST, typeOfDocumentComboBox);
+        layout.putConstraint(SpringLayout.NORTH, search3Button, 10, SpringLayout.SOUTH, currentDateTextField);
+        layout.putConstraint(SpringLayout.WEST, search3Button, 50, SpringLayout.WEST, currentDateLabel);
+
+        typeOfDocumentComboBox.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String[] date=controller.getListEvents(dateBeginTextField.getText(), dateEndTextField.getText());
-                Object[][] eventTableDate=new Object[date.length/4][];
+                search3Button.setEnabled(true);
+            }
+        });
+        search2Button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String[] data=controller.getListEvents(dateBeginTextField.getText(), dateEndTextField.getText());
+                Object[][] eventTableDate=new Object[data.length/4][];
                 for(int i=0; i<eventTableDate.length; i++)
                 {
                     Object[] currentEvent=new Object[4];
                     for(int j=0; j<4; j++)
                     {
-                        currentEvent[j] = date[i * 4 + j];
+                        currentEvent[j] = data[i * 4 + j];
                         if(currentEvent[j].equals("Y"))
                             currentEvent[j]="Да";
                         else if(currentEvent[j].equals("N"))
@@ -877,7 +897,7 @@ public class MainWindow extends JFrame
                 eventTable.setColumnSelectionAllowed(false);
                 JScrollPane eventTableScrollPane=new JScrollPane(eventTable);
                 container2.add(eventTableScrollPane);
-                layout.putConstraint(SpringLayout.NORTH, eventTableScrollPane, 20, SpringLayout.SOUTH, searchButton);
+                layout.putConstraint(SpringLayout.NORTH, eventTableScrollPane, 20, SpringLayout.SOUTH, search2Button);
                 layout.putConstraint(SpringLayout.EAST, eventTableScrollPane, 0, SpringLayout.EAST, container2);
                 layout.putConstraint(SpringLayout.WEST, eventTableScrollPane, 0, SpringLayout.WEST, container2);
                 layout.putConstraint(SpringLayout.SOUTH, eventTableScrollPane, 0, SpringLayout.SOUTH, container2);
@@ -886,7 +906,48 @@ public class MainWindow extends JFrame
                 repaint();
             }
         });
-        //tabbedPane.addTab("Поиск 1", null, container1);
+        search3Button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String choice=(String) typeOfDocumentComboBox.getSelectedItem();
+                String[] data=new String[0];
+                data=choice.equals("Приказ")?
+                        controller.getListOrders(currentDateTextField.getText()):
+                        controller.getListEvents(currentDateTextField.getText(), 0);
+                Object[][] tableDate=new Object[data.length/4][];
+                for(int i=0; i<tableDate.length; i++)
+                {
+                    Object[] currentEvent=new Object[4];
+                    for (int j = 0; j < 4; j++)
+                    {
+                        currentEvent[j] = data[i * 4 + j];
+                        if (currentEvent[j].equals("Y"))
+                            currentEvent[j] = "Да";
+                        else if (currentEvent[j].equals("N"))
+                            currentEvent[j] = "Нет";
+                    }
+                    tableDate[i]=currentEvent;
+                }
+                String[] orderTableColumnName={"Номер", "Дата", "Содержание", "Принял"};
+                String[] eventTableColumnName={"Мероприятие", "Дата", "Выполнено", "Ответственный"};
+                JTable table=choice.equals("Приказ")?
+                        new JTable(tableDate, orderTableColumnName):
+                        new JTable(tableDate, eventTableColumnName);
+                table.setRowSelectionAllowed(false);
+                table.setColumnSelectionAllowed(false);
+                JScrollPane tableScrollPane=new JScrollPane(table);
+                container3.add(tableScrollPane);
+                layout.putConstraint(SpringLayout.NORTH, tableScrollPane, 20, SpringLayout.SOUTH, search3Button);
+                layout.putConstraint(SpringLayout.EAST, tableScrollPane, 0, SpringLayout.EAST, container2);
+                layout.putConstraint(SpringLayout.WEST, tableScrollPane, 0, SpringLayout.WEST, container2);
+                layout.putConstraint(SpringLayout.SOUTH, tableScrollPane, 0, SpringLayout.SOUTH, container2);
+                revalidate();
+                repaint();
+            }
+        });
+        
         tabbedPane.addTab("Поиск 2", null, container2, "Форма для поиска мероприятий за конкретный период");
         tabbedPane.addTab("Поиск 3", container3);
 

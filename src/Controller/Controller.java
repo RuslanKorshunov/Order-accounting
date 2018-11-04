@@ -169,6 +169,18 @@ public class Controller
         return list;
     }
 
+    public String[] getListOrders(String date)
+    {
+        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orders WHERE DATE_OF_ADOPTION<=\""+date+"\" ORDER BY DATE_OF_ADOPTION", JDBC.ORDERSSELECTEDALL);
+        String[] list=new String[arrayList.size()];
+        for(int i=0; i<list.length; i++)
+        {
+            list[i] = arrayList.get(i);
+            System.out.println(list[i]);
+        }
+        return list;
+    }
+
     public String[] getListEvents(String ID)
     {
         ArrayList<String> arrayList=jdbc.select("SELECT ORDEREVENT FROM orderevents WHERE ID_OF_ORDER=\""+ID+"\"", JDBC.ORDEREVENTS);
@@ -181,6 +193,15 @@ public class Controller
     public String[] getListEvents(String beginDate, String endDate)
     {
         ArrayList<String> arrayList=jdbc.select("SELECT * FROM orderevents WHERE DATE_OF_ADOPTION BETWEEN \""+beginDate+"\" AND \""+endDate+"\"", JDBC.ORDEREVENTSELECTEDALL);
+        String[] list=new String[arrayList.size()];
+        for(int i=0; i<list.length; i++)
+            list[i] = arrayList.get(i);
+        return list;
+    }
+
+    public String[] getListEvents(String date, int n)
+    {
+        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orderevents WHERE DATE_OF_ADOPTION<=\""+date+"\" ORDER BY DATE_OF_ADOPTION", JDBC.ORDEREVENTSELECTEDALL);
         String[] list=new String[arrayList.size()];
         for(int i=0; i<list.length; i++)
             list[i] = arrayList.get(i);
