@@ -10,10 +10,10 @@ public class JDBC
     private static final String password="12345";
     public static final int WORKERS=1;
     public static final int ORDERS=2;
-    public static final int ORDEREVENTS=3;
-    public static final int WORKERSSELECTEDALL =4;
-    public static final int ORDERSSELECTEDALL=5;
-    public static final int ORDEREVENTSELECTEDALL=6;
+    public static final int ORDER_EVENTS =3;
+    public static final int WORKERS_SELECTED_ALL =4;
+    public static final int ORDERS_SELECTED_ALL =5;
+    public static final int ORDER_EVENT_SELECTED_ALL =6;
 
     private static Connection connection;
     private static Statement statement;
@@ -22,48 +22,43 @@ public class JDBC
     public ArrayList<String> select(String query, int code)
     {
         ArrayList<String> list=new ArrayList<>();
-        //String query="SELECT * FROM workers";
         try
         {
             connection= DriverManager.getConnection(url, userName, password);
             statement=connection.createStatement();
             resultSet=statement.executeQuery(query);
-            if(code==WORKERS || code== WORKERSSELECTEDALL)
+            if(code==WORKERS || code== WORKERS_SELECTED_ALL)
                 while (resultSet.next())
                 {
                     list.add(resultSet.getString("FIO"));
-                    if(code==WORKERSSELECTEDALL)
+                    if(code== WORKERS_SELECTED_ALL)
                     {
                         list.add(resultSet.getString("POSITION"));
                         list.add(resultSet.getString("DIVISION_NAME"));
                     }
                 }
-            if(code==ORDERS || code==ORDERSSELECTEDALL)
+            if(code==ORDERS || code== ORDERS_SELECTED_ALL)
                 while (resultSet.next())
                 {
                     list.add(Integer.toString(resultSet.getInt("ID")));
-                    if(code==ORDERSSELECTEDALL)
+                    if(code== ORDERS_SELECTED_ALL)
                     {
                         list.add(resultSet.getString("DATE_OF_ADOPTION"));
                         list.add(resultSet.getString("CONTENT"));
                         list.add(resultSet.getString("FIO"));
                     }
                 }
-            if(code==ORDEREVENTS || code==ORDEREVENTSELECTEDALL)
+            if(code== ORDER_EVENTS || code== ORDER_EVENT_SELECTED_ALL)
                 while (resultSet.next())
                 {
                     list.add(resultSet.getString("ORDEREVENT"));
-                    if(code==ORDEREVENTSELECTEDALL)
+                    if(code== ORDER_EVENT_SELECTED_ALL)
                     {
                         list.add(resultSet.getString("DATE_OF_ADOPTION"));
                         list.add(resultSet.getString("MARK"));
                         list.add(resultSet.getString("FIO"));
                     }
                 }
-            /*while(resultSet.next())
-                System.out.println(resultSet.getString("FIO")+
-                        resultSet.getString("DIVISION_NAME")+
-                        resultSet.getString("POSITION"));*/
         }
         catch(SQLException sqle)
         {

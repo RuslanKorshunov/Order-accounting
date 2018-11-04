@@ -44,7 +44,7 @@ public class MainWindow extends JFrame
         menu.add(exit);
         menuBar.add(menu);
         setJMenuBar(menuBar);
-        searchData();
+        addNewData();
 
         add.addActionListener(new ActionListener()
         {
@@ -98,11 +98,11 @@ public class MainWindow extends JFrame
     {
         JTabbedPane tabbedPane=new JTabbedPane();
 
-        Container container1=new Container();
-        Container container2=new Container();
+        Container addNewOrderContainer=new Container();
+        Container addNewCorrespondentContainer=new Container();
 
-        container1.setLayout(layout);
-        container2.setLayout(layout);
+        addNewOrderContainer.setLayout(layout);
+        addNewCorrespondentContainer.setLayout(layout);
 
         JLabel numberLabel=new JLabel("Номер:");
         JLabel dateLabel=new JLabel("Дата:");
@@ -141,77 +141,77 @@ public class MainWindow extends JFrame
         responsibleManTextArea.setWrapStyleWord(true);
         JScrollPane responsibleManScrollPane=new JScrollPane(responsibleManTextArea);
 
-        JButton add1Button=new JButton("Добавить");
-        JButton add2Button=new JButton("Добавить");
+        JButton addNewOrderButton=new JButton("Добавить");
+        JButton addNewCorrespondentButton=new JButton("Добавить");
 
-        container1.add(numberLabel);
-        container1.add(numberTextField);
-        container1.add(dateLabel);
-        container1.add(dateTextField);
-        container1.add(contentLabel);
-        container1.add(contentScrollPane);
-        container1.add(headLabel);
-        container1.add(headScrollPane);
-        container1.add(eventLabel);
-        container1.add(eventScrollPane);
-        container1.add(responsibleManLabel);
-        container1.add(responsibleManScrollPane);
-        container1.add(dateEventLabel);
-        container1.add(dateEventTextField);
-        container1.add(markLabel);
-        container1.add(markComboBox);
-        container1.add(add1Button);
+        addNewOrderContainer.add(numberLabel);
+        addNewOrderContainer.add(numberTextField);
+        addNewOrderContainer.add(dateLabel);
+        addNewOrderContainer.add(dateTextField);
+        addNewOrderContainer.add(contentLabel);
+        addNewOrderContainer.add(contentScrollPane);
+        addNewOrderContainer.add(headLabel);
+        addNewOrderContainer.add(headScrollPane);
+        addNewOrderContainer.add(eventLabel);
+        addNewOrderContainer.add(eventScrollPane);
+        addNewOrderContainer.add(responsibleManLabel);
+        addNewOrderContainer.add(responsibleManScrollPane);
+        addNewOrderContainer.add(dateEventLabel);
+        addNewOrderContainer.add(dateEventTextField);
+        addNewOrderContainer.add(markLabel);
+        addNewOrderContainer.add(markComboBox);
+        addNewOrderContainer.add(addNewOrderButton);
 
-        container2.add(fioLabel);
-        container2.add(fioTextField);
-        container2.add(positionLabel);
-        container2.add(positionTextField);
-        container2.add(divisionLabel);
-        container2.add(divisionTextField);
-        container2.add(add2Button);
+        addNewCorrespondentContainer.add(fioLabel);
+        addNewCorrespondentContainer.add(fioTextField);
+        addNewCorrespondentContainer.add(positionLabel);
+        addNewCorrespondentContainer.add(positionTextField);
+        addNewCorrespondentContainer.add(divisionLabel);
+        addNewCorrespondentContainer.add(divisionTextField);
+        addNewCorrespondentContainer.add(addNewCorrespondentButton);
 
         final int width1=300;
         final int width2=190;
 
-        layout.putConstraint(SpringLayout.NORTH, numberLabel, 5, SpringLayout.NORTH, container1);
-        layout.putConstraint(SpringLayout.WEST, numberLabel, width2, SpringLayout.WEST, container1);
-        layout.putConstraint(SpringLayout.NORTH, numberTextField, 5, SpringLayout.NORTH, container1);
-        layout.putConstraint(SpringLayout.WEST, numberTextField, width1, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.NORTH, numberLabel, 5, SpringLayout.NORTH, addNewOrderContainer);
+        layout.putConstraint(SpringLayout.WEST, numberLabel, width2, SpringLayout.WEST, addNewOrderContainer);
+        layout.putConstraint(SpringLayout.NORTH, numberTextField, 5, SpringLayout.NORTH, addNewOrderContainer);
+        layout.putConstraint(SpringLayout.WEST, numberTextField, width1, SpringLayout.WEST, addNewOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, dateLabel, 5, SpringLayout.SOUTH, numberTextField);
-        layout.putConstraint(SpringLayout.WEST, dateLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, dateLabel, width2, SpringLayout.WEST, addNewOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, dateTextField, 5, SpringLayout.SOUTH, numberTextField);
         layout.putConstraint(SpringLayout.WEST, dateTextField, 0, SpringLayout.WEST, numberTextField);
         layout.putConstraint(SpringLayout.NORTH, contentLabel, 5, SpringLayout.SOUTH, dateTextField);
-        layout.putConstraint(SpringLayout.WEST, contentLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, contentLabel, width2, SpringLayout.WEST, addNewOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, contentScrollPane, 5, SpringLayout.SOUTH, dateTextField);
         layout.putConstraint(SpringLayout.WEST, contentScrollPane, 0, SpringLayout.WEST, dateTextField);
         layout.putConstraint(SpringLayout.NORTH, headLabel, 5, SpringLayout.SOUTH, contentScrollPane);
-        layout.putConstraint(SpringLayout.WEST, headLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, headLabel, width2, SpringLayout.WEST, addNewOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, headScrollPane, 5, SpringLayout.SOUTH, contentScrollPane);
         layout.putConstraint(SpringLayout.WEST, headScrollPane, 0, SpringLayout.WEST, contentScrollPane);
         layout.putConstraint(SpringLayout.NORTH, eventLabel, 20, SpringLayout.SOUTH, headScrollPane);
-        layout.putConstraint(SpringLayout.WEST, eventLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, eventLabel, width2, SpringLayout.WEST, addNewOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, eventScrollPane, 20, SpringLayout.SOUTH, headScrollPane);
         layout.putConstraint(SpringLayout.WEST, eventScrollPane, 0, SpringLayout.WEST,headScrollPane);
         layout.putConstraint(SpringLayout.NORTH, responsibleManLabel, 5, SpringLayout.SOUTH, eventScrollPane);
-        layout.putConstraint(SpringLayout.WEST, responsibleManLabel, width2, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.WEST, responsibleManLabel, width2, SpringLayout.WEST, addNewCorrespondentContainer);
         layout.putConstraint(SpringLayout.NORTH, responsibleManScrollPane, 5, SpringLayout.SOUTH, eventScrollPane);
         layout.putConstraint(SpringLayout.WEST, responsibleManScrollPane, 0, SpringLayout.WEST, eventScrollPane);
         layout.putConstraint(SpringLayout.NORTH, dateEventLabel, 5, SpringLayout.SOUTH, responsibleManScrollPane);
-        layout.putConstraint(SpringLayout.WEST, dateEventLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, dateEventLabel, width2, SpringLayout.WEST, addNewOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, dateEventTextField, 5, SpringLayout.SOUTH, responsibleManScrollPane);
         layout.putConstraint(SpringLayout.WEST, dateEventTextField, 0, SpringLayout.WEST, responsibleManScrollPane);
         layout.putConstraint(SpringLayout.NORTH, markLabel, 5, SpringLayout.SOUTH, dateEventTextField);
-        layout.putConstraint(SpringLayout.WEST, markLabel, width2, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.WEST, markLabel, width2, SpringLayout.WEST, addNewCorrespondentContainer);
         layout.putConstraint(SpringLayout.NORTH, markComboBox, 5, SpringLayout.SOUTH, dateEventTextField);
         layout.putConstraint(SpringLayout.WEST, markComboBox, 0, SpringLayout.WEST, dateEventTextField);
-        layout.putConstraint(SpringLayout.NORTH, add1Button, 5, SpringLayout.SOUTH, markComboBox);
-        layout.putConstraint(SpringLayout.WEST, add1Button, width1+50, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.NORTH, addNewOrderButton, 5, SpringLayout.SOUTH, markComboBox);
+        layout.putConstraint(SpringLayout.WEST, addNewOrderButton, width1+50, SpringLayout.WEST, addNewOrderContainer);
 
-        layout.putConstraint(SpringLayout.NORTH, fioLabel, 200, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.WEST, fioLabel, width2-18, SpringLayout.WEST, container2);
-        layout.putConstraint(SpringLayout.NORTH, fioTextField,200, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.WEST, fioTextField, width1, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.NORTH, fioLabel, 200, SpringLayout.NORTH, addNewCorrespondentContainer);
+        layout.putConstraint(SpringLayout.WEST, fioLabel, width2-18, SpringLayout.WEST, addNewCorrespondentContainer);
+        layout.putConstraint(SpringLayout.NORTH, fioTextField,200, SpringLayout.NORTH, addNewCorrespondentContainer);
+        layout.putConstraint(SpringLayout.WEST, fioTextField, width1, SpringLayout.WEST, addNewCorrespondentContainer);
         layout.putConstraint(SpringLayout.NORTH, positionLabel, 5, SpringLayout.SOUTH, fioTextField);
         layout.putConstraint(SpringLayout.WEST, positionLabel, 0, SpringLayout.WEST, fioLabel);
         layout.putConstraint(SpringLayout.NORTH, positionTextField, 5, SpringLayout.SOUTH, fioTextField);
@@ -220,13 +220,13 @@ public class MainWindow extends JFrame
         layout.putConstraint(SpringLayout.WEST, divisionLabel, 0, SpringLayout.WEST, positionLabel);
         layout.putConstraint(SpringLayout.NORTH, divisionTextField, 5, SpringLayout.SOUTH, positionTextField);
         layout.putConstraint(SpringLayout.WEST, divisionTextField, 0, SpringLayout.WEST, positionTextField);
-        layout.putConstraint(SpringLayout.NORTH, add2Button, 10, SpringLayout.SOUTH, divisionTextField);
-        layout.putConstraint(SpringLayout.WEST, add2Button, 50, SpringLayout.WEST, divisionTextField);
+        layout.putConstraint(SpringLayout.NORTH, addNewCorrespondentButton, 10, SpringLayout.SOUTH, divisionTextField);
+        layout.putConstraint(SpringLayout.WEST, addNewCorrespondentButton, 50, SpringLayout.WEST, divisionTextField);
 
-        tabbedPane.addTab("Приказ", null, container1, "Форма для добавления приказа");
-        tabbedPane.addTab("Корреспондент", null, container2, "Форма для добавления корреспондента");
+        tabbedPane.addTab("Приказ", null, addNewOrderContainer, "Форма для добавления приказа");
+        tabbedPane.addTab("Корреспондент", null, addNewCorrespondentContainer, "Форма для добавления корреспондента");
 
-        add1Button.addActionListener(new ActionListener()
+        addNewOrderButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -297,7 +297,7 @@ public class MainWindow extends JFrame
                 }
             }
         });
-        add2Button.addActionListener(new ActionListener()
+        addNewCorrespondentButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -346,11 +346,11 @@ public class MainWindow extends JFrame
     {
         JTabbedPane tabbedPane=new JTabbedPane();
 
-        Container container1=new Container();
-        Container container2=new Container();
+        Container editOrderContainer=new Container();
+        Container editCorrespondentContainer=new Container();
 
-        container1.setLayout(layout);
-        container2.setLayout(layout);
+        editOrderContainer.setLayout(layout);
+        editCorrespondentContainer.setLayout(layout);
 
         JLabel numberLabel=new JLabel("Номер:");
         numberLabel.setForeground(Color.GRAY);
@@ -414,97 +414,96 @@ public class MainWindow extends JFrame
         JComboBox markComboBox=new JComboBox(new String[]{"Да", "Нет"});
         markComboBox.setEnabled(false);
         JComboBox orderComboBox=new JComboBox(controller.getListOrders());
-        //DefaultComboBoxModel eventComboBoxModel=new DefaultComboBoxModel();
-        JComboBox eventComboBox=new JComboBox(/*eventComboBoxModel*/);
+        JComboBox eventComboBox=new JComboBox();
         eventComboBox.setEnabled(false);
 
-        JButton change1Button=new JButton("Изменить");
-        change1Button.setEnabled(false);
-        JButton change2Button=new JButton("Изменить");
-        change2Button.setEnabled(false);
+        JButton editOrderButton=new JButton("Изменить");
+        editOrderButton.setEnabled(false);
+        JButton editCorrespondentButton=new JButton("Изменить");
+        editCorrespondentButton.setEnabled(false);
 
-        container1.add(orderComboBox);
-        container1.add(numberLabel);
-        container1.add(numberTextField);
-        container1.add(dateLabel);
-        container1.add(dateTextField);
-        container1.add(contentLabel);
-        container1.add(contentScrollPane);
-        container1.add(headLabel);
-        container1.add(headScrollPane);
-        container1.add(eventComboBox);
-        container1.add(eventLabel);
-        container1.add(eventScrollPane);
-        container1.add(responsibleManLabel);
-        container1.add(responsibleManScrollPane);
-        container1.add(dateEventLabel);
-        container1.add(dateEventTextField);
-        container1.add(markLabel);
-        container1.add(markComboBox);
-        container1.add(change1Button);
+        editOrderContainer.add(orderComboBox);
+        editOrderContainer.add(numberLabel);
+        editOrderContainer.add(numberTextField);
+        editOrderContainer.add(dateLabel);
+        editOrderContainer.add(dateTextField);
+        editOrderContainer.add(contentLabel);
+        editOrderContainer.add(contentScrollPane);
+        editOrderContainer.add(headLabel);
+        editOrderContainer.add(headScrollPane);
+        editOrderContainer.add(eventComboBox);
+        editOrderContainer.add(eventLabel);
+        editOrderContainer.add(eventScrollPane);
+        editOrderContainer.add(responsibleManLabel);
+        editOrderContainer.add(responsibleManScrollPane);
+        editOrderContainer.add(dateEventLabel);
+        editOrderContainer.add(dateEventTextField);
+        editOrderContainer.add(markLabel);
+        editOrderContainer.add(markComboBox);
+        editOrderContainer.add(editOrderButton);
 
-        container2.add(correspondentComboBox);
-        container2.add(fioLabel);
-        container2.add(fioTextField);
-        container2.add(positionLabel);
-        container2.add(positionTextField);
-        container2.add(divisionLabel);
-        container2.add(divisionTextField);
-        container2.add(change2Button);
+        editCorrespondentContainer.add(correspondentComboBox);
+        editCorrespondentContainer.add(fioLabel);
+        editCorrespondentContainer.add(fioTextField);
+        editCorrespondentContainer.add(positionLabel);
+        editCorrespondentContainer.add(positionTextField);
+        editCorrespondentContainer.add(divisionLabel);
+        editCorrespondentContainer.add(divisionTextField);
+        editCorrespondentContainer.add(editCorrespondentButton);
 
         final int width1=300;
         final int width2=190;
 
-        layout.putConstraint(SpringLayout.NORTH, orderComboBox, 5, SpringLayout.NORTH, container1);
-        layout.putConstraint(SpringLayout.WEST, orderComboBox, 5, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.NORTH, orderComboBox, 5, SpringLayout.NORTH, editOrderContainer);
+        layout.putConstraint(SpringLayout.WEST, orderComboBox, 5, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.SOUTH, orderComboBox, 0, SpringLayout.SOUTH, numberTextField);
         layout.putConstraint(SpringLayout.EAST, orderComboBox, -15, SpringLayout.WEST, numberLabel);
-        layout.putConstraint(SpringLayout.NORTH, numberLabel, 5, SpringLayout.NORTH, container1);
-        layout.putConstraint(SpringLayout.WEST, numberLabel, width2, SpringLayout.WEST, container1);
-        layout.putConstraint(SpringLayout.NORTH, numberTextField, 5, SpringLayout.NORTH, container1);
-        layout.putConstraint(SpringLayout.WEST, numberTextField, width1, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.NORTH, numberLabel, 5, SpringLayout.NORTH, editOrderContainer);
+        layout.putConstraint(SpringLayout.WEST, numberLabel, width2, SpringLayout.WEST, editOrderContainer);
+        layout.putConstraint(SpringLayout.NORTH, numberTextField, 5, SpringLayout.NORTH, editOrderContainer);
+        layout.putConstraint(SpringLayout.WEST, numberTextField, width1, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, dateLabel, 5, SpringLayout.SOUTH, numberTextField);
-        layout.putConstraint(SpringLayout.WEST, dateLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, dateLabel, width2, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, dateTextField, 5, SpringLayout.SOUTH, numberTextField);
         layout.putConstraint(SpringLayout.WEST, dateTextField, 0, SpringLayout.WEST, numberTextField);
         layout.putConstraint(SpringLayout.NORTH, contentLabel, 5, SpringLayout.SOUTH, dateTextField);
-        layout.putConstraint(SpringLayout.WEST, contentLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, contentLabel, width2, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, contentScrollPane, 5, SpringLayout.SOUTH, dateTextField);
         layout.putConstraint(SpringLayout.WEST, contentScrollPane, 0, SpringLayout.WEST, dateTextField);
         layout.putConstraint(SpringLayout.NORTH, headLabel, 5, SpringLayout.SOUTH, contentScrollPane);
-        layout.putConstraint(SpringLayout.WEST, headLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, headLabel, width2, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, headScrollPane, 5, SpringLayout.SOUTH, contentScrollPane);
         layout.putConstraint(SpringLayout.WEST, headScrollPane, 0, SpringLayout.WEST, contentScrollPane);
         layout.putConstraint(SpringLayout.NORTH, eventComboBox, 0, SpringLayout.NORTH, eventScrollPane);
-        layout.putConstraint(SpringLayout.WEST, eventComboBox, 5, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, eventComboBox, 5, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.SOUTH, eventComboBox, 20, SpringLayout.NORTH, eventComboBox);
         layout.putConstraint(SpringLayout.EAST, eventComboBox, -20, SpringLayout.WEST, eventLabel);
         layout.putConstraint(SpringLayout.NORTH, eventLabel, 20, SpringLayout.SOUTH, headScrollPane);
-        layout.putConstraint(SpringLayout.WEST, eventLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, eventLabel, width2, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, eventScrollPane, 20, SpringLayout.SOUTH, headScrollPane);
         layout.putConstraint(SpringLayout.WEST, eventScrollPane, 0, SpringLayout.WEST,headScrollPane);
         layout.putConstraint(SpringLayout.NORTH, responsibleManLabel, 5, SpringLayout.SOUTH, eventScrollPane);
-        layout.putConstraint(SpringLayout.WEST, responsibleManLabel, width2, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.WEST, responsibleManLabel, width2, SpringLayout.WEST, editCorrespondentContainer);
         layout.putConstraint(SpringLayout.NORTH, responsibleManScrollPane, 5, SpringLayout.SOUTH, eventScrollPane);
         layout.putConstraint(SpringLayout.WEST, responsibleManScrollPane, 0, SpringLayout.WEST, eventScrollPane);
         layout.putConstraint(SpringLayout.NORTH, dateEventLabel, 5, SpringLayout.SOUTH, responsibleManScrollPane);
-        layout.putConstraint(SpringLayout.WEST, dateEventLabel, width2, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.WEST, dateEventLabel, width2, SpringLayout.WEST, editOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, dateEventTextField, 5, SpringLayout.SOUTH, responsibleManScrollPane);
         layout.putConstraint(SpringLayout.WEST, dateEventTextField, 0, SpringLayout.WEST, responsibleManScrollPane);
         layout.putConstraint(SpringLayout.NORTH, markLabel, 5, SpringLayout.SOUTH, dateEventTextField);
-        layout.putConstraint(SpringLayout.WEST, markLabel, width2, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.WEST, markLabel, width2, SpringLayout.WEST, editCorrespondentContainer);
         layout.putConstraint(SpringLayout.NORTH, markComboBox, 5, SpringLayout.SOUTH, dateEventTextField);
         layout.putConstraint(SpringLayout.WEST, markComboBox, 0, SpringLayout.WEST, dateEventTextField);
-        layout.putConstraint(SpringLayout.NORTH, change1Button, 5, SpringLayout.SOUTH, markComboBox);
-        layout.putConstraint(SpringLayout.WEST, change1Button, width1+50, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.NORTH, editOrderButton, 5, SpringLayout.SOUTH, markComboBox);
+        layout.putConstraint(SpringLayout.WEST, editOrderButton, width1+50, SpringLayout.WEST, editOrderContainer);
 
         layout.putConstraint(SpringLayout.WEST, correspondentComboBox, 0, SpringLayout.WEST, fioTextField);
         layout.putConstraint(SpringLayout.EAST, correspondentComboBox, 0, SpringLayout.EAST, fioTextField);
-        layout.putConstraint(SpringLayout.NORTH, correspondentComboBox, 160, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.NORTH, fioLabel, 200, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.WEST, fioLabel, width2, SpringLayout.WEST, container2);
-        layout.putConstraint(SpringLayout.NORTH, fioTextField,200, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.WEST, fioTextField, width1, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.NORTH, correspondentComboBox, 160, SpringLayout.NORTH, editCorrespondentContainer);
+        layout.putConstraint(SpringLayout.NORTH, fioLabel, 200, SpringLayout.NORTH, editCorrespondentContainer);
+        layout.putConstraint(SpringLayout.WEST, fioLabel, width2, SpringLayout.WEST, editCorrespondentContainer);
+        layout.putConstraint(SpringLayout.NORTH, fioTextField,200, SpringLayout.NORTH, editCorrespondentContainer);
+        layout.putConstraint(SpringLayout.WEST, fioTextField, width1, SpringLayout.WEST, editCorrespondentContainer);
         layout.putConstraint(SpringLayout.NORTH, positionLabel, 5, SpringLayout.SOUTH, fioTextField);
         layout.putConstraint(SpringLayout.WEST, positionLabel, 0, SpringLayout.WEST, fioLabel);
         layout.putConstraint(SpringLayout.NORTH, positionTextField, 5, SpringLayout.SOUTH, fioTextField);
@@ -513,11 +512,11 @@ public class MainWindow extends JFrame
         layout.putConstraint(SpringLayout.WEST, divisionLabel, 0, SpringLayout.WEST, positionLabel);
         layout.putConstraint(SpringLayout.NORTH, divisionTextField, 5, SpringLayout.SOUTH, positionTextField);
         layout.putConstraint(SpringLayout.WEST, divisionTextField, 0, SpringLayout.WEST, positionTextField);
-        layout.putConstraint(SpringLayout.NORTH, change2Button, 10, SpringLayout.SOUTH, divisionTextField);
-        layout.putConstraint(SpringLayout.WEST, change2Button, 50, SpringLayout.WEST, divisionTextField);
+        layout.putConstraint(SpringLayout.NORTH, editCorrespondentButton, 10, SpringLayout.SOUTH, divisionTextField);
+        layout.putConstraint(SpringLayout.WEST, editCorrespondentButton, 50, SpringLayout.WEST, divisionTextField);
 
-        tabbedPane.addTab("Приказ", container1);
-        tabbedPane.addTab("Корреспондент", container2);
+        tabbedPane.addTab("Приказ", editOrderContainer);
+        tabbedPane.addTab("Корреспондент", editCorrespondentContainer);
 
         orderComboBox.addActionListener(new ActionListener()
         {
@@ -562,7 +561,7 @@ public class MainWindow extends JFrame
                     markComboBox.setSelectedIndex(0);
                 else
                     markComboBox.setSelectedIndex(1);
-                change1Button.setEnabled(true);
+                editOrderButton.setEnabled(true);
             }
         });
         correspondentComboBox.addActionListener(new ActionListener()
@@ -576,14 +575,14 @@ public class MainWindow extends JFrame
                 fioTextField.setEnabled(true);
                 positionTextField.setEnabled(true);
                 divisionTextField.setEnabled(true);
-                change2Button.setEnabled(true);
+                editCorrespondentButton.setEnabled(true);
                 ArrayList<String> information=controller.getInformationAboutCorr((String) correspondentComboBox.getSelectedItem());
                 fioTextField.setText(information.get(0));
                 positionTextField.setText(information.get(1));
                 divisionTextField.setText(information.get(2));
             }
         });
-        change1Button.addActionListener(new ActionListener()
+        editOrderButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -627,11 +626,11 @@ public class MainWindow extends JFrame
                     markLabel.setForeground(Color.GRAY);
                     markComboBox.setSelectedIndex(0);
                     markComboBox.setEnabled(false);
-                    change2Button.setEnabled(false);
+                    editCorrespondentButton.setEnabled(false);
                 }
             }
         });
-        change2Button.addActionListener(new ActionListener()
+        editCorrespondentButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -661,7 +660,7 @@ public class MainWindow extends JFrame
                     fioTextField.setEnabled(false);
                     positionTextField.setEnabled(false);
                     divisionTextField.setEnabled(false);
-                    change2Button.setEnabled(false);
+                    editCorrespondentButton.setEnabled(false);
                 }
             }
         });
@@ -676,19 +675,19 @@ public class MainWindow extends JFrame
     {
         JTabbedPane tabbedPane=new JTabbedPane();
 
-        Container container1=new Container();
-        Container container2=new Container();
+        Container deleteOrderContainer=new Container();
+        Container deleteCorrespondentContainer=new Container();
 
-        container1.setLayout(layout);
-        container2.setLayout(layout);
+        deleteOrderContainer.setLayout(layout);
+        deleteCorrespondentContainer.setLayout(layout);
 
         JLabel numberLabel=new JLabel("Номер приказа:");
         numberLabel.setForeground(Color.BLACK);
 
-        JButton delete1Button=new JButton("Удалить");
-        delete1Button.setEnabled(false);
-        JButton delete2Button=new JButton("Удалить");
-        delete2Button.setEnabled(false);
+        JButton deleteOrderButton=new JButton("Удалить");
+        deleteOrderButton.setEnabled(false);
+        JButton deleteCorrespondentButton=new JButton("Удалить");
+        deleteCorrespondentButton.setEnabled(false);
 
         JComboBox orderComboBox=new JComboBox(controller.getListOrders());
         JComboBox correspondentComboBox=new JComboBox(controller.getListCorrespondents());
@@ -696,28 +695,28 @@ public class MainWindow extends JFrame
         eventComboBox.setEnabled(false);
         eventComboBox.setPreferredSize(new Dimension(0, 20));
 
-        container1.add(numberLabel);
-        container1.add(orderComboBox);
-        container1.add(delete1Button);
-        container1.add(eventComboBox);
-        container2.add(correspondentComboBox);
-        container2.add(delete2Button);
+        deleteOrderContainer.add(numberLabel);
+        deleteOrderContainer.add(orderComboBox);
+        deleteOrderContainer.add(deleteOrderButton);
+        deleteOrderContainer.add(eventComboBox);
+        deleteCorrespondentContainer.add(correspondentComboBox);
+        deleteCorrespondentContainer.add(deleteCorrespondentButton);
 
-        layout.putConstraint(SpringLayout.NORTH, numberLabel, 150, SpringLayout.NORTH, container1);
-        layout.putConstraint(SpringLayout.WEST, numberLabel, 300, SpringLayout.WEST, container1);
+        layout.putConstraint(SpringLayout.NORTH, numberLabel, 150, SpringLayout.NORTH, deleteOrderContainer);
+        layout.putConstraint(SpringLayout.WEST, numberLabel, 300, SpringLayout.WEST, deleteOrderContainer);
         layout.putConstraint(SpringLayout.NORTH, orderComboBox, 0, SpringLayout.NORTH, numberLabel);
         layout.putConstraint(SpringLayout.WEST, orderComboBox, 5, SpringLayout.EAST, numberLabel);
         layout.putConstraint(SpringLayout.SOUTH, orderComboBox, 0, SpringLayout.SOUTH, numberLabel);
         layout.putConstraint(SpringLayout.NORTH, eventComboBox, 10, SpringLayout.SOUTH, numberLabel);
         layout.putConstraint(SpringLayout.WEST, eventComboBox, 0, SpringLayout.WEST, numberLabel);
         layout.putConstraint(SpringLayout.EAST, eventComboBox, 0, SpringLayout.EAST, orderComboBox);
-        layout.putConstraint(SpringLayout.NORTH, delete1Button, 10, SpringLayout.SOUTH, eventComboBox);
-        layout.putConstraint(SpringLayout.WEST, delete1Button, 25, SpringLayout.WEST, eventComboBox);
+        layout.putConstraint(SpringLayout.NORTH, deleteOrderButton, 10, SpringLayout.SOUTH, eventComboBox);
+        layout.putConstraint(SpringLayout.WEST, deleteOrderButton, 25, SpringLayout.WEST, eventComboBox);
 
-        layout.putConstraint(SpringLayout.NORTH, correspondentComboBox, 180, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.WEST, correspondentComboBox, 280, SpringLayout.WEST, container2);
-        layout.putConstraint(SpringLayout.NORTH, delete2Button, 10, SpringLayout.SOUTH, correspondentComboBox);
-        layout.putConstraint(SpringLayout.WEST, delete2Button, 60, SpringLayout.WEST, correspondentComboBox);
+        layout.putConstraint(SpringLayout.NORTH, correspondentComboBox, 180, SpringLayout.NORTH, deleteCorrespondentContainer);
+        layout.putConstraint(SpringLayout.WEST, correspondentComboBox, 280, SpringLayout.WEST, deleteCorrespondentContainer);
+        layout.putConstraint(SpringLayout.NORTH, deleteCorrespondentButton, 10, SpringLayout.SOUTH, correspondentComboBox);
+        layout.putConstraint(SpringLayout.WEST, deleteCorrespondentButton, 60, SpringLayout.WEST, correspondentComboBox);
 
         orderComboBox.addActionListener(new ActionListener()
         {
@@ -740,10 +739,10 @@ public class MainWindow extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                delete1Button.setEnabled(true);
+                deleteOrderButton.setEnabled(true);
             }
         });
-        delete1Button.addActionListener(new ActionListener()
+        deleteOrderButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -764,7 +763,7 @@ public class MainWindow extends JFrame
                     orderComboBox.setModel(new DefaultComboBoxModel(controller.getListOrders()));
                     eventComboBox.setModel(new DefaultComboBoxModel());
                     eventComboBox.setEnabled(false);
-                    delete1Button.setEnabled(false);
+                    deleteOrderButton.setEnabled(false);
                 }
             }
         });
@@ -773,10 +772,10 @@ public class MainWindow extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                delete2Button.setEnabled(true);
+                deleteCorrespondentButton.setEnabled(true);
             }
         });
-        delete2Button.addActionListener(new ActionListener()
+        deleteCorrespondentButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -787,13 +786,13 @@ public class MainWindow extends JFrame
                 else
                 {
                     correspondentComboBox.setModel(new DefaultComboBoxModel(controller.getListCorrespondents()));
-                    delete2Button.setEnabled(false);
+                    deleteCorrespondentButton.setEnabled(false);
                 }
             }
         });
 
-        tabbedPane.addTab("Приказ", container1);
-        tabbedPane.addTab("Корреспондент", container2);
+        tabbedPane.addTab("Приказ", deleteOrderContainer);
+        tabbedPane.addTab("Корреспондент", deleteCorrespondentContainer);
 
         mainContainer.add(tabbedPane);
 
@@ -805,13 +804,11 @@ public class MainWindow extends JFrame
     {
         JTabbedPane tabbedPane=new JTabbedPane();
 
-        Container container1=new Container();
-        Container container2=new Container();
-        Container container3=new Container();
+        Container firstSearchContainer=new Container();
+        Container secondSearchContainer=new Container();
 
-        container1.setLayout(layout);
-        container2.setLayout(layout);
-        container3.setLayout(layout);
+        firstSearchContainer.setLayout(layout);
+        secondSearchContainer.setLayout(layout);
 
         JLabel dateBeginLabel=new JLabel("Дата начала:");
         JLabel dateEndLabel=new JLabel("Дата завершения:");
@@ -822,37 +819,37 @@ public class MainWindow extends JFrame
         JTextField dateEndTextField=new JTextField("ГГГГ-ММ-ДД", 7);
         JTextField currentDateTextField=new JTextField("ГГГГ-ММ-ДД");
 
-        JButton search2Button=new JButton("Поиск");
-        JButton search3Button=new JButton("Поиск");
-        search3Button.setEnabled(false);
+        JButton firstSearchButton=new JButton("Поиск");
+        JButton secondSearchButton=new JButton("Поиск");
+        secondSearchButton.setEnabled(false);
 
         JComboBox typeOfDocumentComboBox=new JComboBox(new String[]{"Приказ", "Мероприятие"});
         typeOfDocumentComboBox.setPreferredSize(new Dimension(100,20));
 
-        container2.add(dateBeginLabel);
-        container2.add(dateEndLabel);
-        container2.add(dateBeginTextField);
-        container2.add(dateEndTextField);
-        container2.add(search2Button);
-        container3.add(typeOfDocumentLabel);
-        container3.add(typeOfDocumentComboBox);
-        container3.add(currentDateLabel);
-        container3.add(currentDateTextField);
-        container3.add(search3Button);
+        firstSearchContainer.add(dateBeginLabel);
+        firstSearchContainer.add(dateEndLabel);
+        firstSearchContainer.add(dateBeginTextField);
+        firstSearchContainer.add(dateEndTextField);
+        firstSearchContainer.add(firstSearchButton);
+        secondSearchContainer.add(typeOfDocumentLabel);
+        secondSearchContainer.add(typeOfDocumentComboBox);
+        secondSearchContainer.add(currentDateLabel);
+        secondSearchContainer.add(currentDateTextField);
+        secondSearchContainer.add(secondSearchButton);
 
-        layout.putConstraint(SpringLayout.NORTH, dateBeginLabel, 40, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.WEST, dateBeginLabel, 100, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.NORTH, dateBeginLabel, 40, SpringLayout.NORTH, firstSearchContainer);
+        layout.putConstraint(SpringLayout.WEST, dateBeginLabel, 100, SpringLayout.WEST, firstSearchContainer);
         layout.putConstraint(SpringLayout.WEST, dateBeginTextField, 5, SpringLayout.EAST, dateBeginLabel);
         layout.putConstraint(SpringLayout.NORTH, dateBeginTextField, 0, SpringLayout.NORTH, dateBeginLabel);
-        layout.putConstraint(SpringLayout.NORTH, dateEndTextField, 40, SpringLayout.NORTH, container2);
-        layout.putConstraint(SpringLayout.EAST, dateEndTextField, -100, SpringLayout.EAST, container2);
+        layout.putConstraint(SpringLayout.NORTH, dateEndTextField, 40, SpringLayout.NORTH, firstSearchContainer);
+        layout.putConstraint(SpringLayout.EAST, dateEndTextField, -100, SpringLayout.EAST, firstSearchContainer);
         layout.putConstraint(SpringLayout.EAST, dateEndLabel, -5, SpringLayout.WEST, dateEndTextField);
         layout.putConstraint(SpringLayout.NORTH, dateEndLabel, 0, SpringLayout.NORTH, dateEndTextField);
-        layout.putConstraint(SpringLayout.NORTH, search2Button,10, SpringLayout.SOUTH, dateBeginLabel);
-        layout.putConstraint(SpringLayout.WEST, search2Button, 85, SpringLayout.EAST, dateBeginTextField);
+        layout.putConstraint(SpringLayout.NORTH, firstSearchButton,10, SpringLayout.SOUTH, dateBeginLabel);
+        layout.putConstraint(SpringLayout.WEST, firstSearchButton, 85, SpringLayout.EAST, dateBeginTextField);
 
-        layout.putConstraint(SpringLayout.NORTH, typeOfDocumentLabel, 40, SpringLayout.NORTH, container3);
-        layout.putConstraint(SpringLayout.WEST, typeOfDocumentLabel, 100, SpringLayout.WEST, container3);
+        layout.putConstraint(SpringLayout.NORTH, typeOfDocumentLabel, 40, SpringLayout.NORTH, secondSearchContainer);
+        layout.putConstraint(SpringLayout.WEST, typeOfDocumentLabel, 100, SpringLayout.WEST, secondSearchContainer);
         layout.putConstraint(SpringLayout.NORTH, typeOfDocumentComboBox, 0, SpringLayout.NORTH, typeOfDocumentLabel);
         layout.putConstraint(SpringLayout.WEST, typeOfDocumentComboBox, 5, SpringLayout.EAST, typeOfDocumentLabel);
         layout.putConstraint(SpringLayout.NORTH, currentDateLabel,10, SpringLayout.SOUTH, typeOfDocumentComboBox);
@@ -860,18 +857,18 @@ public class MainWindow extends JFrame
         layout.putConstraint(SpringLayout.NORTH, currentDateTextField, 0, SpringLayout.NORTH, currentDateLabel);
         layout.putConstraint(SpringLayout.WEST, currentDateTextField, 0, SpringLayout.WEST, typeOfDocumentComboBox);
         layout.putConstraint(SpringLayout.EAST, currentDateTextField, 0, SpringLayout.EAST, typeOfDocumentComboBox);
-        layout.putConstraint(SpringLayout.NORTH, search3Button, 10, SpringLayout.SOUTH, currentDateTextField);
-        layout.putConstraint(SpringLayout.WEST, search3Button, 50, SpringLayout.WEST, currentDateLabel);
+        layout.putConstraint(SpringLayout.NORTH, secondSearchButton, 10, SpringLayout.SOUTH, currentDateTextField);
+        layout.putConstraint(SpringLayout.WEST, secondSearchButton, 50, SpringLayout.WEST, currentDateLabel);
 
         typeOfDocumentComboBox.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                search3Button.setEnabled(true);
+                secondSearchButton.setEnabled(true);
             }
         });
-        search2Button.addActionListener(new ActionListener()
+        firstSearchButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -896,17 +893,16 @@ public class MainWindow extends JFrame
                 eventTable.setRowSelectionAllowed(false);
                 eventTable.setColumnSelectionAllowed(false);
                 JScrollPane eventTableScrollPane=new JScrollPane(eventTable);
-                container2.add(eventTableScrollPane);
-                layout.putConstraint(SpringLayout.NORTH, eventTableScrollPane, 20, SpringLayout.SOUTH, search2Button);
-                layout.putConstraint(SpringLayout.EAST, eventTableScrollPane, 0, SpringLayout.EAST, container2);
-                layout.putConstraint(SpringLayout.WEST, eventTableScrollPane, 0, SpringLayout.WEST, container2);
-                layout.putConstraint(SpringLayout.SOUTH, eventTableScrollPane, 0, SpringLayout.SOUTH, container2);
-
+                firstSearchContainer.add(eventTableScrollPane);
+                layout.putConstraint(SpringLayout.NORTH, eventTableScrollPane, 20, SpringLayout.SOUTH, firstSearchButton);
+                layout.putConstraint(SpringLayout.EAST, eventTableScrollPane, 0, SpringLayout.EAST, firstSearchContainer);
+                layout.putConstraint(SpringLayout.WEST, eventTableScrollPane, 0, SpringLayout.WEST, firstSearchContainer);
+                layout.putConstraint(SpringLayout.SOUTH, eventTableScrollPane, 0, SpringLayout.SOUTH, firstSearchContainer);
                 revalidate();
                 repaint();
             }
         });
-        search3Button.addActionListener(new ActionListener()
+        secondSearchButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
@@ -938,18 +934,18 @@ public class MainWindow extends JFrame
                 table.setRowSelectionAllowed(false);
                 table.setColumnSelectionAllowed(false);
                 JScrollPane tableScrollPane=new JScrollPane(table);
-                container3.add(tableScrollPane);
-                layout.putConstraint(SpringLayout.NORTH, tableScrollPane, 20, SpringLayout.SOUTH, search3Button);
-                layout.putConstraint(SpringLayout.EAST, tableScrollPane, 0, SpringLayout.EAST, container2);
-                layout.putConstraint(SpringLayout.WEST, tableScrollPane, 0, SpringLayout.WEST, container2);
-                layout.putConstraint(SpringLayout.SOUTH, tableScrollPane, 0, SpringLayout.SOUTH, container2);
+                secondSearchContainer.add(tableScrollPane);
+                layout.putConstraint(SpringLayout.NORTH, tableScrollPane, 20, SpringLayout.SOUTH, secondSearchButton);
+                layout.putConstraint(SpringLayout.EAST, tableScrollPane, 0, SpringLayout.EAST, firstSearchContainer);
+                layout.putConstraint(SpringLayout.WEST, tableScrollPane, 0, SpringLayout.WEST, firstSearchContainer);
+                layout.putConstraint(SpringLayout.SOUTH, tableScrollPane, 0, SpringLayout.SOUTH, firstSearchContainer);
                 revalidate();
                 repaint();
             }
         });
-        
-        tabbedPane.addTab("Поиск 2", null, container2, "Форма для поиска мероприятий за конкретный период");
-        tabbedPane.addTab("Поиск 3", container3);
+
+        tabbedPane.addTab("Поиск 1", null, firstSearchContainer, "Форма для поиска мероприятий за конкретный период");
+        tabbedPane.addTab("Поиск 1", secondSearchContainer);
 
         mainContainer.add(tabbedPane);
 

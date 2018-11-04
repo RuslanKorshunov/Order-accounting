@@ -45,7 +45,7 @@ public class Controller
                 return answer;
         }
         list.clear();
-        list=jdbc.select("SELECT ORDEREVENT, ID_OF_ORDER FROM orderevents WHERE ORDEREVENT=\""+event+"\" AND ID_OF_ORDER=\""+number+"\"", JDBC.ORDEREVENTS);
+        list=jdbc.select("SELECT ORDEREVENT, ID_OF_ORDER FROM orderevents WHERE ORDEREVENT=\""+event+"\" AND ID_OF_ORDER=\""+number+"\"", JDBC.ORDER_EVENTS);
         if(list.isEmpty())
         {
             String query="INSERT INTO orderevents VALUES (\""+event+"\", "+number+", \""+dateEvent+"\", \""+mark+"\", \""+responsibleMan+"\")";
@@ -67,13 +67,13 @@ public class Controller
 
     public ArrayList<String> getInformationAboutCorr(String fio)
     {
-        ArrayList<String> list=jdbc.select("SELECT * FROM workers WHERE FIO=\""+fio+"\"", JDBC.WORKERSSELECTEDALL);;
+        ArrayList<String> list=jdbc.select("SELECT * FROM workers WHERE FIO=\""+fio+"\"", JDBC.WORKERS_SELECTED_ALL);;
         return list;
     }
 
     public ArrayList<String> getInformationAboutOrder(String ID)
     {
-        ArrayList<String> list=jdbc.select("SELECT * FROM orders WHERE ID=\""+ID+"\"", JDBC.ORDERSSELECTEDALL);
+        ArrayList<String> list=jdbc.select("SELECT * FROM orders WHERE ID=\""+ID+"\"", JDBC.ORDERS_SELECTED_ALL);
         System.out.println(list);
         ArrayList<String> correspondent=getInformationAboutCorr(list.get(3));
         if(correspondent.isEmpty())
@@ -85,11 +85,7 @@ public class Controller
 
     public ArrayList<String> getInformationAboutEvent(String ORDEREVENT)
     {
-        ArrayList<String> list=jdbc.select("SELECT ORDEREVENT, DATE_OF_ADOPTION, MARK, FIO FROM orderevents WHERE ORDEREVENT=\""+ORDEREVENT+"\"", +JDBC.ORDEREVENTSELECTEDALL);
-        /*ArrayList<String> correspondent=getInformationAboutCorr(list.get(3));
-        list.add(3, correspondent.get(0)+"\n"+correspondent.get(2)+"\n"+correspondent.get(1));*/
-        /*list.addAll(getInformationAboutCorr(list.get(3)));
-        list.remove(3);*/
+        ArrayList<String> list=jdbc.select("SELECT ORDEREVENT, DATE_OF_ADOPTION, MARK, FIO FROM orderevents WHERE ORDEREVENT=\""+ORDEREVENT+"\"", +JDBC.ORDER_EVENT_SELECTED_ALL);
         System.out.println(list);
         return list;
     }
@@ -171,7 +167,7 @@ public class Controller
 
     public String[] getListOrders(String date)
     {
-        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orders WHERE DATE_OF_ADOPTION<=\""+date+"\" ORDER BY DATE_OF_ADOPTION", JDBC.ORDERSSELECTEDALL);
+        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orders WHERE DATE_OF_ADOPTION<=\""+date+"\" ORDER BY DATE_OF_ADOPTION", JDBC.ORDERS_SELECTED_ALL);
         String[] list=new String[arrayList.size()];
         for(int i=0; i<list.length; i++)
         {
@@ -183,7 +179,7 @@ public class Controller
 
     public String[] getListEvents(String ID)
     {
-        ArrayList<String> arrayList=jdbc.select("SELECT ORDEREVENT FROM orderevents WHERE ID_OF_ORDER=\""+ID+"\"", JDBC.ORDEREVENTS);
+        ArrayList<String> arrayList=jdbc.select("SELECT ORDEREVENT FROM orderevents WHERE ID_OF_ORDER=\""+ID+"\"", JDBC.ORDER_EVENTS);
         String[] list=new String[arrayList.size()];
         for(int i=0; i<list.length; i++)
             list[i]=arrayList.get(i);
@@ -192,7 +188,7 @@ public class Controller
 
     public String[] getListEvents(String beginDate, String endDate)
     {
-        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orderevents WHERE DATE_OF_ADOPTION BETWEEN \""+beginDate+"\" AND \""+endDate+"\"", JDBC.ORDEREVENTSELECTEDALL);
+        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orderevents WHERE DATE_OF_ADOPTION BETWEEN \""+beginDate+"\" AND \""+endDate+"\"", JDBC.ORDER_EVENT_SELECTED_ALL);
         String[] list=new String[arrayList.size()];
         for(int i=0; i<list.length; i++)
             list[i] = arrayList.get(i);
@@ -201,7 +197,7 @@ public class Controller
 
     public String[] getListEvents(String date, int n)
     {
-        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orderevents WHERE DATE_OF_ADOPTION<=\""+date+"\" ORDER BY DATE_OF_ADOPTION", JDBC.ORDEREVENTSELECTEDALL);
+        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orderevents WHERE DATE_OF_ADOPTION<=\""+date+"\" ORDER BY DATE_OF_ADOPTION", JDBC.ORDER_EVENT_SELECTED_ALL);
         String[] list=new String[arrayList.size()];
         for(int i=0; i<list.length; i++)
             list[i] = arrayList.get(i);
