@@ -3,10 +3,16 @@ package View;
 import Controller.Controller;
 
 import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MainWindow extends JFrame
 {
@@ -44,7 +50,7 @@ public class MainWindow extends JFrame
         menu.add(exit);
         menuBar.add(menu);
         setJMenuBar(menuBar);
-        deleteDate();
+        searchData();
 
         add.addActionListener(new ActionListener()
         {
@@ -70,7 +76,16 @@ public class MainWindow extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 mainContainer.removeAll();
-                deleteDate();
+                deleteData();
+            }
+        });
+        search.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                mainContainer.removeAll();
+                searchData();
             }
         });
         exit.addActionListener(new ActionListener()
@@ -663,7 +678,7 @@ public class MainWindow extends JFrame
         repaint();
     }
 
-    private void deleteDate()
+    private void deleteData()
     {
         JTabbedPane tabbedPane=new JTabbedPane();
 
@@ -785,6 +800,95 @@ public class MainWindow extends JFrame
 
         tabbedPane.addTab("Приказ", container1);
         tabbedPane.addTab("Корреспондент", container2);
+
+        mainContainer.add(tabbedPane);
+
+        revalidate();
+        repaint();
+    }
+
+    private void searchData()
+    {
+        JTabbedPane tabbedPane=new JTabbedPane();
+
+        Container container1=new Container();
+        Container container2=new Container();
+        Container container3=new Container();
+
+        container1.setLayout(layout);
+        container2.setLayout(layout);
+        container3.setLayout(layout);
+
+        JLabel dateBeginLabel=new JLabel("Дата начала:");
+        JLabel dateEndLabel=new JLabel("Дата завершения:");
+
+        JTextField dateBeginTextField=new JTextField("ГГГГ-ММ-ДД", 7);
+        JTextField dateEndTextField=new JTextField("ГГГГ-ММ-ДД", 7);
+
+        JButton searchButton=new JButton("Поиск");
+
+        String[] eventTableColumnName={"Мероприятие", "Дата", "Выполнено", "Ответственный"};
+        //Object[] eventTableDate={};
+/*        JTable eventTable=new JTable();
+        eventTable.setRowSelectionAllowed(false);
+        eventTable.setColumnSelectionAllowed(false);*/
+
+        container2.add(dateBeginLabel);
+        container2.add(dateEndLabel);
+        container2.add(dateBeginTextField);
+        container2.add(dateEndTextField);
+        container2.add(searchButton);
+        //container2.add(eventTable);
+
+        layout.putConstraint(SpringLayout.NORTH, dateBeginLabel, 40, SpringLayout.NORTH, container2);
+        layout.putConstraint(SpringLayout.WEST, dateBeginLabel, 100, SpringLayout.WEST, container2);
+        layout.putConstraint(SpringLayout.WEST, dateBeginTextField, 5, SpringLayout.EAST, dateBeginLabel);
+        layout.putConstraint(SpringLayout.NORTH, dateBeginTextField, 0, SpringLayout.NORTH, dateBeginLabel);
+        layout.putConstraint(SpringLayout.NORTH, dateEndTextField, 40, SpringLayout.NORTH, container2);
+        layout.putConstraint(SpringLayout.EAST, dateEndTextField, -100, SpringLayout.EAST, container2);
+        layout.putConstraint(SpringLayout.EAST, dateEndLabel, -5, SpringLayout.WEST, dateEndTextField);
+        layout.putConstraint(SpringLayout.NORTH, dateEndLabel, 0, SpringLayout.NORTH, dateEndTextField);
+        layout.putConstraint(SpringLayout.NORTH, searchButton,10, SpringLayout.SOUTH, dateBeginLabel);
+        layout.putConstraint(SpringLayout.WEST, searchButton, 85, SpringLayout.EAST, dateBeginTextField);
+
+        searchButton.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                String[] date=controller.getListEvents(dateBeginTextField.getText(), dateEndTextField.getText());
+                Object[][] eventTableDate=new Object[date.length/4][];
+                for(int i=0; i<eventTableDate.length; i++)
+                {
+                    Object[] currentEvent=new Object[4];
+                    for(int j=0; j<4; j++)
+                    {
+                        currentEvent[j] = date[i * 4 + j];
+                        if(currentEvent[j].equals("Y"))
+                            currentEvent[j]="Да";
+                        else if(currentEvent[j].equals("N"))
+                            currentEvent[j]="Нет";
+                    }
+                    eventTableDate[i]=currentEvent;
+                }
+                String[] eventTableColumnName={"Мероприятие", "Дата", "Выполнено", "Ответственный"};
+                JTable eventTable=new JTable(eventTableDate, eventTableColumnName);
+                eventTable.setRowSelectionAllowed(false);
+                eventTable.setColumnSelectionAllowed(false);
+                JScrollPane eventTableScrollPane=new JScrollPane(eventTable);
+                container2.add(eventTableScrollPane);
+                layout.putConstraint(SpringLayout.NORTH, eventTableScrollPane, 20, SpringLayout.SOUTH, searchButton);
+                layout.putConstraint(SpringLayout.EAST, eventTableScrollPane, 0, SpringLayout.EAST, container2);
+                layout.putConstraint(SpringLayout.WEST, eventTableScrollPane, 0, SpringLayout.WEST, container2);
+                layout.putConstraint(SpringLayout.SOUTH, eventTableScrollPane, 0, SpringLayout.SOUTH, container2);
+
+                revalidate();
+                repaint();
+            }
+        });
+        //tabbedPane.addTab("Поиск 1", null, container1);
+        tabbedPane.addTab("Поиск 2", null, container2, "Форма для поиска мероприятий за конкретный период");
+        tabbedPane.addTab("Поиск 3", container3);
 
         mainContainer.add(tabbedPane);
 

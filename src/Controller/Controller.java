@@ -177,4 +177,13 @@ public class Controller
             list[i]=arrayList.get(i);
         return list;
     }
+
+    public String[] getListEvents(String beginDate, String endDate)
+    {
+        ArrayList<String> arrayList=jdbc.select("SELECT * FROM orderevents WHERE DATE_OF_ADOPTION BETWEEN \""+beginDate+"\" AND \""+endDate+"\"", JDBC.ORDEREVENTSELECTEDALL);
+        String[] list=new String[arrayList.size()];
+        for(int i=0; i<list.length; i++)
+            list[i] = arrayList.get(i);
+        return list;
+    }
 }
